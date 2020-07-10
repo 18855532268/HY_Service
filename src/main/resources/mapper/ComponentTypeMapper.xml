@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yajie.huayi.mapper.ComponentTypeMapper">
+  <resultMap id="BaseResultMap" type="com.yajie.huayi.domain.ComponentType">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type_code" jdbcType="VARCHAR" property="typeCode" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="create_id" jdbcType="BIGINT" property="createId" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type_code, `type`, create_id, create_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from component_type
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from component_type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.ComponentType" useGeneratedKeys="true">
+    insert into component_type (type_code, `type`, create_id, 
+      create_at)
+    values (#{typeCode,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT}, 
+      #{createAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.ComponentType" useGeneratedKeys="true">
+    insert into component_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="typeCode != null">
+        type_code,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createAt != null">
+        create_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="typeCode != null">
+        #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createAt != null">
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yajie.huayi.domain.ComponentType">
+    update component_type
+    <set>
+      <if test="typeCode != null">
+        type_code = #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createAt != null">
+        create_at = #{createAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yajie.huayi.domain.ComponentType">
+    update component_type
+    set type_code = #{typeCode,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=BIGINT},
+      create_at = #{createAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findCount" resultType="java.lang.Long" parameterType="java.lang.String">
+    select count(*)
+    from component_type ct
+    where 1=1
+    <include refid="whereComponentType"/>
+  </select>
+  <select id="findPage" resultType="com.yajie.huayi.domain.ComponentType">
+    select *
+    from component_type ct
+    where 1=1
+    <include refid="whereComponentType"/>
+    limit #{pageRequest.offset}, #{pageRequest.pageSize}
+  </select>
+  <sql id="whereComponentType">
+    <if test="key != null">
+      and ct.type_code like CONCAT('%', #{key}, '%') or ct.type like CONCAT('%', #{key}, '%')
+    </if>
+  </sql>
+</mapper>

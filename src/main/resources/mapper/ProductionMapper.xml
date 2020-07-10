@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yajie.huayi.mapper.ProductionMapper">
+  <resultMap id="BaseResultMap" type="com.yajie.huayi.domain.Production">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="product_num" jdbcType="VARCHAR" property="productNum" />
+    <result column="drawings_url" jdbcType="VARCHAR" property="drawingsUrl" />
+    <result column="component_type_id" jdbcType="BIGINT" property="componentTypeId" />
+    <result column="building_nos" jdbcType="VARCHAR" property="buildingNos" />
+    <result column="floor_nos" jdbcType="VARCHAR" property="floorNos" />
+    <result column="length" jdbcType="DOUBLE" property="length" />
+    <result column="width" jdbcType="DOUBLE" property="width" />
+    <result column="height" jdbcType="DOUBLE" property="height" />
+    <result column="volume" jdbcType="DOUBLE" property="volume" />
+    <result column="actualVolume" jdbcType="DOUBLE" property="actualvolume" />
+    <result column="handle_id" jdbcType="BIGINT" property="handleId" />
+    <result column="handle_name" jdbcType="VARCHAR" property="handleName" />
+    <result column="audit_id" jdbcType="BIGINT" property="auditId" />
+    <result column="audit_at" jdbcType="TIMESTAMP" property="auditAt" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project_id, product_num, drawings_url, component_type_id, building_nos, floor_nos, 
+    `length`, width, height, volume, actualVolume, handle_id, handle_name, audit_id, 
+    audit_at, `status`, create_at, update_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from production
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from production
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.Production" useGeneratedKeys="true">
+    insert into production (project_id, product_num, drawings_url, 
+      component_type_id, building_nos, floor_nos, 
+      `length`, width, height, 
+      volume, actualVolume, handle_id, 
+      handle_name, audit_id, audit_at, 
+      `status`, create_at, update_at
+      )
+    values (#{projectId,jdbcType=BIGINT}, #{productNum,jdbcType=VARCHAR}, #{drawingsUrl,jdbcType=VARCHAR}, 
+      #{componentTypeId,jdbcType=BIGINT}, #{buildingNos,jdbcType=VARCHAR}, #{floorNos,jdbcType=VARCHAR}, 
+      #{length,jdbcType=DOUBLE}, #{width,jdbcType=DOUBLE}, #{height,jdbcType=DOUBLE}, 
+      #{volume,jdbcType=DOUBLE}, #{actualvolume,jdbcType=DOUBLE}, #{handleId,jdbcType=BIGINT}, 
+      #{handleName,jdbcType=VARCHAR}, #{auditId,jdbcType=BIGINT}, #{auditAt,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{createAt,jdbcType=TIMESTAMP}, #{updateAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.Production" useGeneratedKeys="true">
+    insert into production
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="productNum != null">
+        product_num,
+      </if>
+      <if test="drawingsUrl != null">
+        drawings_url,
+      </if>
+      <if test="componentTypeId != null">
+        component_type_id,
+      </if>
+      <if test="buildingNos != null">
+        building_nos,
+      </if>
+      <if test="floorNos != null">
+        floor_nos,
+      </if>
+      <if test="length != null">
+        `length`,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="volume != null">
+        volume,
+      </if>
+      <if test="actualvolume != null">
+        actualVolume,
+      </if>
+      <if test="handleId != null">
+        handle_id,
+      </if>
+      <if test="handleName != null">
+        handle_name,
+      </if>
+      <if test="auditId != null">
+        audit_id,
+      </if>
+      <if test="auditAt != null">
+        audit_at,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createAt != null">
+        create_at,
+      </if>
+      <if test="updateAt != null">
+        update_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="productNum != null">
+        #{productNum,jdbcType=VARCHAR},
+      </if>
+      <if test="drawingsUrl != null">
+        #{drawingsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="componentTypeId != null">
+        #{componentTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="buildingNos != null">
+        #{buildingNos,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNos != null">
+        #{floorNos,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null">
+        #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="actualvolume != null">
+        #{actualvolume,jdbcType=DOUBLE},
+      </if>
+      <if test="handleId != null">
+        #{handleId,jdbcType=BIGINT},
+      </if>
+      <if test="handleName != null">
+        #{handleName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditId != null">
+        #{auditId,jdbcType=BIGINT},
+      </if>
+      <if test="auditAt != null">
+        #{auditAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createAt != null">
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null">
+        #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yajie.huayi.domain.Production">
+    update production
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="productNum != null">
+        product_num = #{productNum,jdbcType=VARCHAR},
+      </if>
+      <if test="drawingsUrl != null">
+        drawings_url = #{drawingsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="componentTypeId != null">
+        component_type_id = #{componentTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="buildingNos != null">
+        building_nos = #{buildingNos,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNos != null">
+        floor_nos = #{floorNos,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        `length` = #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null">
+        volume = #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="actualvolume != null">
+        actualVolume = #{actualvolume,jdbcType=DOUBLE},
+      </if>
+      <if test="handleId != null">
+        handle_id = #{handleId,jdbcType=BIGINT},
+      </if>
+      <if test="handleName != null">
+        handle_name = #{handleName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditId != null">
+        audit_id = #{auditId,jdbcType=BIGINT},
+      </if>
+      <if test="auditAt != null">
+        audit_at = #{auditAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createAt != null">
+        create_at = #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null">
+        update_at = #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yajie.huayi.domain.Production">
+    update production
+    set project_id = #{projectId,jdbcType=BIGINT},
+      product_num = #{productNum,jdbcType=VARCHAR},
+      drawings_url = #{drawingsUrl,jdbcType=VARCHAR},
+      component_type_id = #{componentTypeId,jdbcType=BIGINT},
+      building_nos = #{buildingNos,jdbcType=VARCHAR},
+      floor_nos = #{floorNos,jdbcType=VARCHAR},
+      `length` = #{length,jdbcType=DOUBLE},
+      width = #{width,jdbcType=DOUBLE},
+      height = #{height,jdbcType=DOUBLE},
+      volume = #{volume,jdbcType=DOUBLE},
+      actualVolume = #{actualvolume,jdbcType=DOUBLE},
+      handle_id = #{handleId,jdbcType=BIGINT},
+      handle_name = #{handleName,jdbcType=VARCHAR},
+      audit_id = #{auditId,jdbcType=BIGINT},
+      audit_at = #{auditAt,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=INTEGER},
+      create_at = #{createAt,jdbcType=TIMESTAMP},
+      update_at = #{updateAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

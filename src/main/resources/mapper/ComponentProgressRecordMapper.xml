@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yajie.huayi.mapper.ComponentProgressRecordMapper">
+  <resultMap id="BaseResultMap" type="com.yajie.huayi.domain.ComponentProgressRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="component_id" jdbcType="BIGINT" property="componentId" />
+    <result column="progress_details" jdbcType="VARCHAR" property="progressDetails" />
+    <result column="rows_at" jdbcType="TIMESTAMP" property="rowsAt" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="operation_at" jdbcType="TIMESTAMP" property="operationAt" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, component_id, progress_details, rows_at, `status`, operator_id, remark, img_url, 
+    operation_at, `type`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from component_progress_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from component_progress_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.ComponentProgressRecord" useGeneratedKeys="true">
+    insert into component_progress_record (component_id, progress_details, rows_at, 
+      `status`, operator_id, remark, 
+      img_url, operation_at, `type`
+      )
+    values (#{componentId,jdbcType=BIGINT}, #{progressDetails,jdbcType=VARCHAR}, #{rowsAt,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{operatorId,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{operationAt,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.ComponentProgressRecord" useGeneratedKeys="true">
+    insert into component_progress_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="componentId != null">
+        component_id,
+      </if>
+      <if test="progressDetails != null">
+        progress_details,
+      </if>
+      <if test="rowsAt != null">
+        rows_at,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="operationAt != null">
+        operation_at,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="componentId != null">
+        #{componentId,jdbcType=BIGINT},
+      </if>
+      <if test="progressDetails != null">
+        #{progressDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="rowsAt != null">
+        #{rowsAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="operationAt != null">
+        #{operationAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yajie.huayi.domain.ComponentProgressRecord">
+    update component_progress_record
+    <set>
+      <if test="componentId != null">
+        component_id = #{componentId,jdbcType=BIGINT},
+      </if>
+      <if test="progressDetails != null">
+        progress_details = #{progressDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="rowsAt != null">
+        rows_at = #{rowsAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="operationAt != null">
+        operation_at = #{operationAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yajie.huayi.domain.ComponentProgressRecord">
+    update component_progress_record
+    set component_id = #{componentId,jdbcType=BIGINT},
+      progress_details = #{progressDetails,jdbcType=VARCHAR},
+      rows_at = #{rowsAt,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=INTEGER},
+      operator_id = #{operatorId,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      operation_at = #{operationAt,jdbcType=TIMESTAMP},
+      `type` = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="findProduceDate" resultType="com.yajie.huayi.domain.other.ProduceDateEntity">
+    SELECT
+	    cpr.type type,
+	    c.number number,
+	    DATE_FORMAT(cpr.rows_at, "%Y-%m-%d") date
+    FROM
+	    component_progress_record cpr
+    INNER JOIN component c ON cpr.component_id = c.id
+    WHERE
+	    cpr.rows_at BETWEEN #{startDate} AND #{endDate}
+  </select>
+  <select id="findCount" resultType="java.lang.Long">
+    SELECT
+	    count(*)
+    FROM
+	    component_progress_record cpr
+    INNER JOIN component c ON c.id = cpr.component_id
+    INNER JOIN component_type ct ON ct.id = c.type_id
+    INNER JOIN project p ON c.project_id = p.id
+    LEFT JOIN `user` u1 ON cpr.operator_id = u1.id
+    LEFT JOIN component_inspection_record cir ON cir.component_id = c.id
+    LEFT JOIN `user` u2 ON cir.inspector_id = u2.id
+  </select>
+    <select id="findPage" resultType="com.yajie.huayi.domain.other.TodayTaskEntity">
+    SELECT
+	    cpr.id id,
+	    c.number componentNum,
+	    ct.type componentType,
+	    p.short_name projectShortName,
+	    p.`name` projectName,
+	    cpr.rows_at taskDate,
+	    cpr.`status` operationStatus,
+	    cpr.operation_at operationDate,
+	    u1.`name` operationName,
+	    u1.telephone telephone,
+	    u2.`name` inspectionName,
+	    cir.`status` inspectionStatus
+    FROM
+	    component_progress_record cpr
+    INNER JOIN component c ON c.id = cpr.component_id
+    INNER JOIN component_type ct ON ct.id = c.type_id
+    INNER JOIN project p ON c.project_id = p.id
+    LEFT JOIN `user` u1 ON cpr.operator_id = u1.id
+    LEFT JOIN component_inspection_record cir ON cir.component_id = c.id
+    LEFT JOIN `user` u2 ON cir.inspector_id = u2.id
+
+    </select>
+
+</mapper>

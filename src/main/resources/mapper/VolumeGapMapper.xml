@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yajie.huayi.mapper.VolumeGapMapper">
+  <resultMap id="BaseResultMap" type="com.yajie.huayi.domain.VolumeGap">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="production_id" jdbcType="BIGINT" property="productionId" />
+    <result column="component_id" jdbcType="BIGINT" property="componentId" />
+    <result column="length_gap" jdbcType="DOUBLE" property="lengthGap" />
+    <result column="width_gap" jdbcType="DOUBLE" property="widthGap" />
+    <result column="height_gap" jdbcType="DOUBLE" property="heightGap" />
+    <result column="volume" jdbcType="DOUBLE" property="volume" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, production_id, component_id, length_gap, width_gap, height_gap, volume, create_at, 
+    update_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from volume_gap
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from volume_gap
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.VolumeGap" useGeneratedKeys="true">
+    insert into volume_gap (production_id, component_id, length_gap, 
+      width_gap, height_gap, volume, 
+      create_at, update_at)
+    values (#{productionId,jdbcType=BIGINT}, #{componentId,jdbcType=BIGINT}, #{lengthGap,jdbcType=DOUBLE}, 
+      #{widthGap,jdbcType=DOUBLE}, #{heightGap,jdbcType=DOUBLE}, #{volume,jdbcType=DOUBLE}, 
+      #{createAt,jdbcType=TIMESTAMP}, #{updateAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.VolumeGap" useGeneratedKeys="true">
+    insert into volume_gap
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productionId != null">
+        production_id,
+      </if>
+      <if test="componentId != null">
+        component_id,
+      </if>
+      <if test="lengthGap != null">
+        length_gap,
+      </if>
+      <if test="widthGap != null">
+        width_gap,
+      </if>
+      <if test="heightGap != null">
+        height_gap,
+      </if>
+      <if test="volume != null">
+        volume,
+      </if>
+      <if test="createAt != null">
+        create_at,
+      </if>
+      <if test="updateAt != null">
+        update_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productionId != null">
+        #{productionId,jdbcType=BIGINT},
+      </if>
+      <if test="componentId != null">
+        #{componentId,jdbcType=BIGINT},
+      </if>
+      <if test="lengthGap != null">
+        #{lengthGap,jdbcType=DOUBLE},
+      </if>
+      <if test="widthGap != null">
+        #{widthGap,jdbcType=DOUBLE},
+      </if>
+      <if test="heightGap != null">
+        #{heightGap,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null">
+        #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="createAt != null">
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null">
+        #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yajie.huayi.domain.VolumeGap">
+    update volume_gap
+    <set>
+      <if test="productionId != null">
+        production_id = #{productionId,jdbcType=BIGINT},
+      </if>
+      <if test="componentId != null">
+        component_id = #{componentId,jdbcType=BIGINT},
+      </if>
+      <if test="lengthGap != null">
+        length_gap = #{lengthGap,jdbcType=DOUBLE},
+      </if>
+      <if test="widthGap != null">
+        width_gap = #{widthGap,jdbcType=DOUBLE},
+      </if>
+      <if test="heightGap != null">
+        height_gap = #{heightGap,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null">
+        volume = #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="createAt != null">
+        create_at = #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null">
+        update_at = #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yajie.huayi.domain.VolumeGap">
+    update volume_gap
+    set production_id = #{productionId,jdbcType=BIGINT},
+      component_id = #{componentId,jdbcType=BIGINT},
+      length_gap = #{lengthGap,jdbcType=DOUBLE},
+      width_gap = #{widthGap,jdbcType=DOUBLE},
+      height_gap = #{heightGap,jdbcType=DOUBLE},
+      volume = #{volume,jdbcType=DOUBLE},
+      create_at = #{createAt,jdbcType=TIMESTAMP},
+      update_at = #{updateAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

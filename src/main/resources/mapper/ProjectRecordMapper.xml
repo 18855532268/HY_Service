@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yajie.huayi.mapper.ProjectRecordMapper">
+  <resultMap id="BaseResultMap" type="com.yajie.huayi.domain.ProjectRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="specificas" jdbcType="VARCHAR" property="specificas" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="unit_price" jdbcType="VARCHAR" property="unitPrice" />
+    <result column="total_price" jdbcType="VARCHAR" property="totalPrice" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project_id, `name`, specificas, `count`, unit, unit_price, total_price, create_at, 
+    update_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from project_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.ProjectRecord" useGeneratedKeys="true">
+    insert into project_record (project_id, `name`, specificas, 
+      `count`, unit, unit_price, 
+      total_price, create_at, update_at
+      )
+    values (#{projectId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{specificas,jdbcType=VARCHAR}, 
+      #{count,jdbcType=INTEGER}, #{unit,jdbcType=VARCHAR}, #{unitPrice,jdbcType=VARCHAR}, 
+      #{totalPrice,jdbcType=VARCHAR}, #{createAt,jdbcType=TIMESTAMP}, #{updateAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.ProjectRecord" useGeneratedKeys="true">
+    insert into project_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="specificas != null">
+        specificas,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+      <if test="createAt != null">
+        create_at,
+      </if>
+      <if test="updateAt != null">
+        update_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="specificas != null">
+        #{specificas,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null">
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null">
+        #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yajie.huayi.domain.ProjectRecord">
+    update project_record
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="specificas != null">
+        specificas = #{specificas,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null">
+        create_at = #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null">
+        update_at = #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yajie.huayi.domain.ProjectRecord">
+    update project_record
+    set project_id = #{projectId,jdbcType=BIGINT},
+      `name` = #{name,jdbcType=VARCHAR},
+      specificas = #{specificas,jdbcType=VARCHAR},
+      `count` = #{count,jdbcType=INTEGER},
+      unit = #{unit,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=VARCHAR},
+      total_price = #{totalPrice,jdbcType=VARCHAR},
+      create_at = #{createAt,jdbcType=TIMESTAMP},
+      update_at = #{updateAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

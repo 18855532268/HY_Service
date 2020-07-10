@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yajie.huayi.mapper.ProjectMapper">
+  <resultMap id="BaseResultMap" type="com.yajie.huayi.domain.Project">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="short_name" jdbcType="VARCHAR" property="shortName" />
+    <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="customer_company" jdbcType="VARCHAR" property="customerCompany" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="contract_at" jdbcType="TIMESTAMP" property="contractAt" />
+    <result column="signer_id" jdbcType="BIGINT" property="signerId" />
+    <result column="signer_name" jdbcType="VARCHAR" property="signerName" />
+    <result column="contract" jdbcType="VARCHAR" property="contract" />
+    <result column="handle_id" jdbcType="BIGINT" property="handleId" />
+    <result column="handle_name" jdbcType="VARCHAR" property="handleName" />
+    <result column="handle_at" jdbcType="TIMESTAMP" property="handleAt" />
+    <result column="audit_id" jdbcType="BIGINT" property="auditId" />
+    <result column="audit_at" jdbcType="TIMESTAMP" property="auditAt" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, address, short_name, customer_id, customer_company, customer_name, telephone, 
+    contract_at, signer_id, signer_name, contract, handle_id, handle_name, handle_at, 
+    audit_id, audit_at, `number`, create_at, update_at, `status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from project
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.Project" useGeneratedKeys="true">
+    insert into project (`name`, address, short_name, 
+      customer_id, customer_company, customer_name, 
+      telephone, contract_at, signer_id, 
+      signer_name, contract, handle_id, 
+      handle_name, handle_at, audit_id, 
+      audit_at, `number`, create_at, 
+      update_at, `status`)
+    values (#{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{shortName,jdbcType=VARCHAR}, 
+      #{customerId,jdbcType=BIGINT}, #{customerCompany,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{contractAt,jdbcType=TIMESTAMP}, #{signerId,jdbcType=BIGINT}, 
+      #{signerName,jdbcType=VARCHAR}, #{contract,jdbcType=VARCHAR}, #{handleId,jdbcType=BIGINT}, 
+      #{handleName,jdbcType=VARCHAR}, #{handleAt,jdbcType=TIMESTAMP}, #{auditId,jdbcType=BIGINT}, 
+      #{auditAt,jdbcType=TIMESTAMP}, #{number,jdbcType=VARCHAR}, #{createAt,jdbcType=TIMESTAMP}, 
+      #{updateAt,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.Project" useGeneratedKeys="true">
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="shortName != null">
+        short_name,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="customerCompany != null">
+        customer_company,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="contractAt != null">
+        contract_at,
+      </if>
+      <if test="signerId != null">
+        signer_id,
+      </if>
+      <if test="signerName != null">
+        signer_name,
+      </if>
+      <if test="contract != null">
+        contract,
+      </if>
+      <if test="handleId != null">
+        handle_id,
+      </if>
+      <if test="handleName != null">
+        handle_name,
+      </if>
+      <if test="handleAt != null">
+        handle_at,
+      </if>
+      <if test="auditId != null">
+        audit_id,
+      </if>
+      <if test="auditAt != null">
+        audit_at,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="createAt != null">
+        create_at,
+      </if>
+      <if test="updateAt != null">
+        update_at,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null">
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="customerCompany != null">
+        #{customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAt != null">
+        #{contractAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signerId != null">
+        #{signerId,jdbcType=BIGINT},
+      </if>
+      <if test="signerName != null">
+        #{signerName,jdbcType=VARCHAR},
+      </if>
+      <if test="contract != null">
+        #{contract,jdbcType=VARCHAR},
+      </if>
+      <if test="handleId != null">
+        #{handleId,jdbcType=BIGINT},
+      </if>
+      <if test="handleName != null">
+        #{handleName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleAt != null">
+        #{handleAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditId != null">
+        #{auditId,jdbcType=BIGINT},
+      </if>
+      <if test="auditAt != null">
+        #{auditAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null">
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null">
+        #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yajie.huayi.domain.Project">
+    update project
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null">
+        short_name = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="customerCompany != null">
+        customer_company = #{customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAt != null">
+        contract_at = #{contractAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signerId != null">
+        signer_id = #{signerId,jdbcType=BIGINT},
+      </if>
+      <if test="signerName != null">
+        signer_name = #{signerName,jdbcType=VARCHAR},
+      </if>
+      <if test="contract != null">
+        contract = #{contract,jdbcType=VARCHAR},
+      </if>
+      <if test="handleId != null">
+        handle_id = #{handleId,jdbcType=BIGINT},
+      </if>
+      <if test="handleName != null">
+        handle_name = #{handleName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleAt != null">
+        handle_at = #{handleAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditId != null">
+        audit_id = #{auditId,jdbcType=BIGINT},
+      </if>
+      <if test="auditAt != null">
+        audit_at = #{auditAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="number != null">
+        `number` = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null">
+        create_at = #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null">
+        update_at = #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yajie.huayi.domain.Project">
+    update project
+    set `name` = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      short_name = #{shortName,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=BIGINT},
+      customer_company = #{customerCompany,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      contract_at = #{contractAt,jdbcType=TIMESTAMP},
+      signer_id = #{signerId,jdbcType=BIGINT},
+      signer_name = #{signerName,jdbcType=VARCHAR},
+      contract = #{contract,jdbcType=VARCHAR},
+      handle_id = #{handleId,jdbcType=BIGINT},
+      handle_name = #{handleName,jdbcType=VARCHAR},
+      handle_at = #{handleAt,jdbcType=TIMESTAMP},
+      audit_id = #{auditId,jdbcType=BIGINT},
+      audit_at = #{auditAt,jdbcType=TIMESTAMP},
+      `number` = #{number,jdbcType=VARCHAR},
+      create_at = #{createAt,jdbcType=TIMESTAMP},
+      update_at = #{updateAt,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="findCount" resultType="java.lang.Long">
+    select count(*)
+    from project p
+    where 1=1
+    <include refid="whereProject"/>
+  </select>
+  <select id="findPage" resultType="com.yajie.huayi.domain.Project">
+    <bind name="DELETE" value="@com.yajie.huayi.constant.ConstantsForDomain@DELETE" />
+    select *
+    from project p
+    where p.status !=#{DELETE}
+    <include refid="whereProject"/>
+    order by p.update_at desc
+    limit #{pageRequest.offset}, #{pageRequest.pageSize}
+  </select>
+  <sql id="whereProject">
+    <if test="key != null">
+      and p.number like CONCAT('%', #{key}, '%') or p.customer_company like CONCAT('%', #{key}, '%') or p.name like CONCAT('%', #{key}, '%') or p.short_name like CONCAT('%', #{key}, '%')
+    </if>
+    <if test="signStartDate != null and signStartDate != ''">
+      and p.contract_at &gt;= #{signStartDate}
+    </if>
+    <if test="signEndDate != null and signEndDate != ''">
+      and p.contract_at  &lt; #{signEndDate}
+    </if>
+    <if test="status != null and status != ''">
+      and p.status = #{status}
+    </if>
+  </sql>
+</mapper>

@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yajie.huayi.mapper.ComponentMapper">
+  <resultMap id="BaseResultMap" type="com.yajie.huayi.domain.Component">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="production_id" jdbcType="BIGINT" property="productionId" />
+    <result column="building_no" jdbcType="INTEGER" property="buildingNo" />
+    <result column="floor_no" jdbcType="INTEGER" property="floorNo" />
+    <result column="type_id" jdbcType="BIGINT" property="typeId" />
+    <result column="create_id" jdbcType="BIGINT" property="createId" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="length" jdbcType="DOUBLE" property="length" />
+    <result column="width" jdbcType="DOUBLE" property="width" />
+    <result column="height" jdbcType="DOUBLE" property="height" />
+    <result column="volume" jdbcType="DOUBLE" property="volume" />
+    <result column="actual_volume" jdbcType="DOUBLE" property="actualVolume" />
+    <result column="steel_bar_binding_at" jdbcType="TIMESTAMP" property="steelBarBindingAt" />
+    <result column="steel_area" jdbcType="VARCHAR" property="steelArea" />
+    <result column="steel_id" jdbcType="BIGINT" property="steelId" />
+    <result column="moldie_at" jdbcType="TIMESTAMP" property="moldieAt" />
+    <result column="mold_id" jdbcType="BIGINT" property="moldId" />
+    <result column="molder_id" jdbcType="BIGINT" property="molderId" />
+    <result column="pour_at" jdbcType="TIMESTAMP" property="pourAt" />
+    <result column="demould_at" jdbcType="TIMESTAMP" property="demouldAt" />
+    <result column="demould_id" jdbcType="BIGINT" property="demouldId" />
+    <result column="finished_id" jdbcType="BIGINT" property="finishedId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `number`, project_id, production_id, building_no, floor_no, type_id, create_id, 
+    create_name, `length`, width, height, volume, actual_volume, steel_bar_binding_at, 
+    steel_area, steel_id, moldie_at, mold_id, molder_id, pour_at, demould_at, demould_id, 
+    finished_id, `status`, create_at, update_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from component
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from component
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.Component" useGeneratedKeys="true">
+    insert into component (`number`, project_id, production_id, 
+      building_no, floor_no, type_id, 
+      create_id, create_name, `length`, 
+      width, height, volume, 
+      actual_volume, steel_bar_binding_at, steel_area, 
+      steel_id, moldie_at, mold_id, 
+      molder_id, pour_at, demould_at, 
+      demould_id, finished_id, `status`, 
+      create_at, update_at)
+    values (#{number,jdbcType=VARCHAR}, #{projectId,jdbcType=BIGINT}, #{productionId,jdbcType=BIGINT}, 
+      #{buildingNo,jdbcType=INTEGER}, #{floorNo,jdbcType=INTEGER}, #{typeId,jdbcType=BIGINT}, 
+      #{createId,jdbcType=BIGINT}, #{createName,jdbcType=VARCHAR}, #{length,jdbcType=DOUBLE}, 
+      #{width,jdbcType=DOUBLE}, #{height,jdbcType=DOUBLE}, #{volume,jdbcType=DOUBLE}, 
+      #{actualVolume,jdbcType=DOUBLE}, #{steelBarBindingAt,jdbcType=TIMESTAMP}, #{steelArea,jdbcType=VARCHAR}, 
+      #{steelId,jdbcType=BIGINT}, #{moldieAt,jdbcType=TIMESTAMP}, #{moldId,jdbcType=BIGINT}, 
+      #{molderId,jdbcType=BIGINT}, #{pourAt,jdbcType=TIMESTAMP}, #{demouldAt,jdbcType=TIMESTAMP}, 
+      #{demouldId,jdbcType=BIGINT}, #{finishedId,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
+      #{createAt,jdbcType=TIMESTAMP}, #{updateAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.Component" useGeneratedKeys="true">
+    insert into component
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="productionId != null">
+        production_id,
+      </if>
+      <if test="buildingNo != null">
+        building_no,
+      </if>
+      <if test="floorNo != null">
+        floor_no,
+      </if>
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="length != null">
+        `length`,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="volume != null">
+        volume,
+      </if>
+      <if test="actualVolume != null">
+        actual_volume,
+      </if>
+      <if test="steelBarBindingAt != null">
+        steel_bar_binding_at,
+      </if>
+      <if test="steelArea != null">
+        steel_area,
+      </if>
+      <if test="steelId != null">
+        steel_id,
+      </if>
+      <if test="moldieAt != null">
+        moldie_at,
+      </if>
+      <if test="moldId != null">
+        mold_id,
+      </if>
+      <if test="molderId != null">
+        molder_id,
+      </if>
+      <if test="pourAt != null">
+        pour_at,
+      </if>
+      <if test="demouldAt != null">
+        demould_at,
+      </if>
+      <if test="demouldId != null">
+        demould_id,
+      </if>
+      <if test="finishedId != null">
+        finished_id,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createAt != null">
+        create_at,
+      </if>
+      <if test="updateAt != null">
+        update_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="productionId != null">
+        #{productionId,jdbcType=BIGINT},
+      </if>
+      <if test="buildingNo != null">
+        #{buildingNo,jdbcType=INTEGER},
+      </if>
+      <if test="floorNo != null">
+        #{floorNo,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null">
+        #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="actualVolume != null">
+        #{actualVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="steelBarBindingAt != null">
+        #{steelBarBindingAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="steelArea != null">
+        #{steelArea,jdbcType=VARCHAR},
+      </if>
+      <if test="steelId != null">
+        #{steelId,jdbcType=BIGINT},
+      </if>
+      <if test="moldieAt != null">
+        #{moldieAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moldId != null">
+        #{moldId,jdbcType=BIGINT},
+      </if>
+      <if test="molderId != null">
+        #{molderId,jdbcType=BIGINT},
+      </if>
+      <if test="pourAt != null">
+        #{pourAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="demouldAt != null">
+        #{demouldAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="demouldId != null">
+        #{demouldId,jdbcType=BIGINT},
+      </if>
+      <if test="finishedId != null">
+        #{finishedId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createAt != null">
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null">
+        #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yajie.huayi.domain.Component">
+    update component
+    <set>
+      <if test="number != null">
+        `number` = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="productionId != null">
+        production_id = #{productionId,jdbcType=BIGINT},
+      </if>
+      <if test="buildingNo != null">
+        building_no = #{buildingNo,jdbcType=INTEGER},
+      </if>
+      <if test="floorNo != null">
+        floor_no = #{floorNo,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        `length` = #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null">
+        volume = #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="actualVolume != null">
+        actual_volume = #{actualVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="steelBarBindingAt != null">
+        steel_bar_binding_at = #{steelBarBindingAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="steelArea != null">
+        steel_area = #{steelArea,jdbcType=VARCHAR},
+      </if>
+      <if test="steelId != null">
+        steel_id = #{steelId,jdbcType=BIGINT},
+      </if>
+      <if test="moldieAt != null">
+        moldie_at = #{moldieAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moldId != null">
+        mold_id = #{moldId,jdbcType=BIGINT},
+      </if>
+      <if test="molderId != null">
+        molder_id = #{molderId,jdbcType=BIGINT},
+      </if>
+      <if test="pourAt != null">
+        pour_at = #{pourAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="demouldAt != null">
+        demould_at = #{demouldAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="demouldId != null">
+        demould_id = #{demouldId,jdbcType=BIGINT},
+      </if>
+      <if test="finishedId != null">
+        finished_id = #{finishedId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createAt != null">
+        create_at = #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null">
+        update_at = #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yajie.huayi.domain.Component">
+    update component
+    set `number` = #{number,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=BIGINT},
+      production_id = #{productionId,jdbcType=BIGINT},
+      building_no = #{buildingNo,jdbcType=INTEGER},
+      floor_no = #{floorNo,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=BIGINT},
+      create_id = #{createId,jdbcType=BIGINT},
+      create_name = #{createName,jdbcType=VARCHAR},
+      `length` = #{length,jdbcType=DOUBLE},
+      width = #{width,jdbcType=DOUBLE},
+      height = #{height,jdbcType=DOUBLE},
+      volume = #{volume,jdbcType=DOUBLE},
+      actual_volume = #{actualVolume,jdbcType=DOUBLE},
+      steel_bar_binding_at = #{steelBarBindingAt,jdbcType=TIMESTAMP},
+      steel_area = #{steelArea,jdbcType=VARCHAR},
+      steel_id = #{steelId,jdbcType=BIGINT},
+      moldie_at = #{moldieAt,jdbcType=TIMESTAMP},
+      mold_id = #{moldId,jdbcType=BIGINT},
+      molder_id = #{molderId,jdbcType=BIGINT},
+      pour_at = #{pourAt,jdbcType=TIMESTAMP},
+      demould_at = #{demouldAt,jdbcType=TIMESTAMP},
+      demould_id = #{demouldId,jdbcType=BIGINT},
+      finished_id = #{finishedId,jdbcType=BIGINT},
+      `status` = #{status,jdbcType=INTEGER},
+      create_at = #{createAt,jdbcType=TIMESTAMP},
+      update_at = #{updateAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findCount" resultType="java.lang.Long">
+    <bind name="DELETE" value="@com.yajie.huayi.constant.ConstantsForDomain@DELETE" />
+        select count(*)
+        from component c INNER JOIN production p ON p.id=c.production_id INNER JOIN project pr ON pr.id =c.project_id
+        where c.status !=#{DELETE}
+        <include refid="whereComponent" />
+  </select>
+  <select id="findPage" resultType="com.yajie.huayi.domain.Component">
+    <bind name="DELETE" value="@com.yajie.huayi.constant.ConstantsForDomain@DELETE" />
+    select *
+    from component c INNER JOIN production p ON p.id=c.production_id INNER JOIN project pr ON pr.id =c.project_id
+    where c.status !=#{DELETE}
+    <include refid="whereComponent" />
+    order by c.id desc
+    limit #{pageRequest.offset}, #{pageRequest.pageSize}
+  </select>
+  <sql id="whereComponent">
+    <if test="number != null">
+      and c.`number` = CONCAT('%', #{number}, '%'),
+    </if>
+    <if test="projectId != null">
+      and p.project_id = #{projectId},
+    </if>
+    <if test="componentTypeId != null">
+      and c.type_id = #{componentTypeId},
+    </if>
+    <if test="buildingNo != null">
+      and c.building_no = #{buildingNo},
+    </if>
+    <if test="floorNoStart != null">
+      and c.floor_no &gt; #{floorNoStart},
+    </if>
+    <if test="floorNoEnd != null">
+      and c.floor_no &gt; #{floorNoEnd},
+    </if>
+    <if test="number != null">
+      and pr.`number` = CONCAT('%', #{number}, '%'),
+    </if>
+  </sql>
+</mapper>
