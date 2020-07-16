@@ -25,7 +25,7 @@ import java.util.UUID;
 /**
  * 一些通用方法
  *
- * @author zhangjicheng
+ * @author yaoby
  */
 public class CommonUtil {
     /**

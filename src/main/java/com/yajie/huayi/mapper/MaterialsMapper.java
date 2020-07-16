@@ -22,7 +22,7 @@ public interface MaterialsMapper {
 
     int updateByPrimaryKey(Materials record);
 
-    Long findCount(@Param("id") Long id, @Param("name") String name, @Param("countMin") Integer countMin, @Param("countMax") Integer countMax, @Param("type") Integer type);
+    Long findCount(@Param("id") Long id, @Param("name") String name, @Param("specifications") String specifications, @Param("unit") String unit, @Param("countMin") Integer countMin, @Param("countMax") Integer countMax, @Param("type") Integer type);
 
-    List<Materials> findPage(@Param("id") Long id, @Param("name") String name, @Param("countMin") Integer countMin, @Param("countMax") Integer countMax, @Param("type") Integer type, @Param("pageRequest") PageRequest pageRequest);
+    List<Materials> findPage(@Param("id") Long id, @Param("name") String name, @Param("specifications") String specifications, @Param("unit") String unit, @Param("countMin") Integer countMin, @Param("countMax") Integer countMax, @Param("type") Integer type, @Param("pageRequest") PageRequest pageRequest);
 }

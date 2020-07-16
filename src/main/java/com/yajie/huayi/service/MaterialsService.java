@@ -39,11 +39,14 @@ public class MaterialsService {
         if (materialsVo.getId() == null) {
             CommonUtil.checkParameters(materialsVo);
             Materials materials = new Materials();
+            materials.setNumber(materialsVo.getNumber());
             materials.setName(materialsVo.getName());
-            materials.setCount(materials.getCount());
-            materials.setSpecifications(materials.getSpecifications());
-            materials.setSteelContent(materials.getSteelContent());
-            materials.setType(materials.getType());
+            materials.setCount(materialsVo.getCount());
+            materials.setSpecifications(materialsVo.getSpecifications());
+            materials.setSteelContent(materialsVo.getSteelContent());
+            materials.setModel(materialsVo.getModel());
+            materials.setType(materialsVo.getType());
+            materials.setUnit(materialsVo.getUnit());
             materials.setStatus(ConstantsForDomain.MATERIALS_STATUS_NORMAL);
             materials.setCreateAt(new Date());
             materials.setUpdateAt(new Date());
@@ -53,11 +56,14 @@ public class MaterialsService {
         if (materialsVo.getId() != null) {
             Materials materials = materialsMapper.selectByPrimaryKey(materialsVo.getId());
             CommonUtil.checkParameters(materials);
+            materials.setNumber(materialsVo.getNumber());
             materials.setName(materialsVo.getName());
-            materials.setCount(materials.getCount());
-            materials.setSpecifications(materials.getSpecifications());
-            materials.setSteelContent(materials.getSteelContent());
-            materials.setType(materials.getType());
+            materials.setCount(materialsVo.getCount());
+            materials.setSpecifications(materialsVo.getSpecifications());
+            materials.setSteelContent(materialsVo.getSteelContent());
+            materials.setModel(materialsVo.getModel());
+            materials.setUnit(materialsVo.getUnit());
+            materials.setType(materialsVo.getType());
             materials.setUpdateAt(new Date());
             materialsMapper.updateByPrimaryKey(materials);
             log.info("修改原材料：{}", JSONObject.toJSONString(materials));
@@ -78,11 +84,11 @@ public class MaterialsService {
         log.info("删除原材料：{}", JSONObject.toJSONString(materials));
     }
 
-    public Page<MaterialsPageVo> getMaterials(Long id, String name, Integer countMin, Integer countMax, Integer type, PageRequest pageRequest) {
-        Long count = materialsMapper.findCount(id, name, countMin, countMax, type);
+    public Page<MaterialsPageVo> getMaterials(Long id, String name, String specifications, String unit,Integer countMin, Integer countMax, Integer type, PageRequest pageRequest) {
+        Long count = materialsMapper.findCount(id, name, specifications, unit, countMin, countMax, type);
         List<Materials> page = new ArrayList<>();
         if (count > 0) {
-            page = materialsMapper.findPage(id, name, countMin, countMax, type, pageRequest);
+            page = materialsMapper.findPage(id, name, specifications, unit, countMin, countMax, type, pageRequest);
 
         }
         return new Page<>(pageRequest, MaterialsPageVo.of(page), count);

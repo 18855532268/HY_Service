@@ -159,13 +159,13 @@
     SELECT
 	    count(*)
     FROM
-	    component_progress_record cpr
+	component_progress_record cpr
     INNER JOIN component c ON c.id = cpr.component_id
     INNER JOIN component_type ct ON ct.id = c.type_id
     INNER JOIN project p ON c.project_id = p.id
     LEFT JOIN `user` u1 ON cpr.operator_id = u1.id
-    LEFT JOIN component_inspection_record cir ON cir.component_id = c.id
-    LEFT JOIN `user` u2 ON cir.inspector_id = u2.id
+    where 1=1
+    <include refid="whereComponentProgressRecord"/>
   </select>
     <select id="findPage" resultType="com.yajie.huayi.domain.other.TodayTaskEntity">
     SELECT
@@ -178,18 +178,27 @@
 	    cpr.`status` operationStatus,
 	    cpr.operation_at operationDate,
 	    u1.`name` operationName,
-	    u1.telephone telephone,
-	    u2.`name` inspectionName,
-	    cir.`status` inspectionStatus
+	    u1.telephone telephone
     FROM
 	    component_progress_record cpr
-    INNER JOIN component c ON c.id = cpr.component_id
-    INNER JOIN component_type ct ON ct.id = c.type_id
-    INNER JOIN project p ON c.project_id = p.id
-    LEFT JOIN `user` u1 ON cpr.operator_id = u1.id
-    LEFT JOIN component_inspection_record cir ON cir.component_id = c.id
-    LEFT JOIN `user` u2 ON cir.inspector_id = u2.id
-
+        INNER JOIN component c ON c.id = cpr.component_id
+        INNER JOIN component_type ct ON ct.id = c.type_id
+        INNER JOIN project p ON c.project_id = p.id
+        LEFT JOIN `user` u1 ON cpr.operator_id = u1.id
+    where 1=1
+    <include refid="whereComponentProgressRecord"/>
+    order by cpr.id desc
+    limit #{pageRequest.offset}, #{pageRequest.pageSize}
     </select>
-
+    <sql id="whereComponentProgressRecord">
+      <if test="operationId != null">
+        and cpr.operator_id = #{operationId}
+      </if>
+      <if test="operationStatus != null">
+        and cpr.`status` = #{operationStatus}
+      </if>
+      <if test="operationType != null">
+        and cpr.type = #{operationType}
+      </if>
+    </sql>
 </mapper>

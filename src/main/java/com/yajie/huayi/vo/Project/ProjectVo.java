@@ -35,6 +35,10 @@ public class ProjectVo {
      */
     private String shortName;
     /**
+     * 项目编号
+     */
+    private String number;
+    /**
      * 客户id
      */
     private Long customerId;

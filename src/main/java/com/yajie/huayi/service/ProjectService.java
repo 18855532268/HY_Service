@@ -67,7 +67,7 @@ public class ProjectService {
             project.setHandleId(handle.getId());
             project.setHandleName(handle.getUsername());
             project.setHandleAt(new Date());
-            project.setNumber(String.valueOf(new Date()));
+            project.setNumber(projectVo.getNumber());
             project.setCreateAt(new Date());
             project.setUpdateAt(new Date());
             project.setStatus(ConstantsForDomain.PROJECT_CUSTOMER_UNAUDIT);
@@ -132,7 +132,6 @@ public class ProjectService {
                log.info("返回：{}", JSONObject.toJSONString(recordList));
                 vos.add(ProjectPageVo.of(project,  ProjectRecordPageVo.of(recordList)));
             }
-
         }
         return new Page<>(pageRequest, vos, count);
     }

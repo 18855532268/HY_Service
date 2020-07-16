@@ -17,6 +17,7 @@ import java.util.List;
 @Accessors(chain = true)
 @Builder
 public class UserVo {
+    private Long id;
     private Long createId;
     /**
      * 用户名
@@ -46,6 +47,6 @@ public class UserVo {
      */
     private String remark;
 
-    private List<Long> role;
+    private List<RolePageVo> roles;
 
 }

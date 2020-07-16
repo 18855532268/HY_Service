@@ -26,19 +26,21 @@ public class UserController {
 
     /**
      * 条件查询用户分页
-     * @param username
+     * @param
      * @param createId
-     * @param page
      * @param pageSize
      * @return
      */
     @GetMapping("/list")
-    public ReturnVO getUserPage(String username,
+    public ReturnVO getUserPage(String key,
+                                Long role,
                                 Long createId,
+                                String startTime,
+                                String endStartTime,
                                 @RequestParam(defaultValue = Constants.PAGE_DEFAULT_START) Integer page,
                                 @RequestParam(defaultValue = Constants.PAGE_DEFAULT_SIZE) Integer pageSize) {
         PageRequest pageRequest = new PageRequest(page, pageSize);
-        return ReturnVO.getSuccess(userService.getUserPage(username, createId, pageRequest));
+        return ReturnVO.getSuccess(userService.getUserPage(key, role, createId, startTime, endStartTime,  pageRequest));
     }
     @PostMapping("/login")
     public ReturnVO login(@RequestJson("username") String username, @RequestJson("password")String password) {
@@ -56,4 +58,23 @@ public class UserController {
         log.info("添加用户:{}", JSONObject.toJSONString(userVo));
         return ReturnVO.getSuccess();
     }
+
+    @PostMapping("/delete")
+    public ReturnVO addUser(@RequestJson("id")Long id) {
+        userService.deleteUser(id);
+        return ReturnVO.getSuccess();
+    }
+    /**
+     * 获取角色列表
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/role/list")
+    public ReturnVO getRolePage(@RequestParam(defaultValue = Constants.PAGE_DEFAULT_START) Integer page,
+                                @RequestParam(defaultValue = Constants.PAGE_DEFAULT_SIZE) Integer pageSize) {
+        PageRequest pageRequest = new PageRequest(page, pageSize);
+        return ReturnVO.getSuccess(userService.getRolePage(pageRequest));
+    }
+
 }

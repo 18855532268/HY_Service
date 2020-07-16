@@ -61,13 +61,15 @@ public class MaterialsController {
     @GetMapping("/list")
     public ReturnVO getMaterials(Long id,
                                  String name,
+                                 String specifications,
+                                 String unit,
                                  Integer countMin,
                                  Integer countMax,
                                  Integer type,
                                  @RequestParam(defaultValue = Constants.PAGE_DEFAULT_START) Integer page,
                                  @RequestParam(defaultValue = Constants.PAGE_DEFAULT_SIZE) Integer pageSize) {
         PageRequest pageRequest = new PageRequest(page, pageSize);
-        return ReturnVO.getSuccess(materialsService.getMaterials(id, name, countMin, countMax, type, pageRequest));
+        return ReturnVO.getSuccess(materialsService.getMaterials(id, name, specifications, unit, countMin, countMax, type, pageRequest));
     }
 
 }

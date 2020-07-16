@@ -19,6 +19,11 @@ public class Materials implements Serializable {
     private Long id;
 
     /**
+     * 编号
+     */
+    private String number;
+
+    /**
      * 材料名称
      */
     private String name;
@@ -34,9 +39,19 @@ public class Materials implements Serializable {
     private String steelContent;
 
     /**
+     * 型号
+     */
+    private String model;
+
+    /**
      * 数量
      */
     private Integer count;
+
+    /**
+     * 单位
+     */
+    private String unit;
 
     /**
      * 材料类型

@@ -1,5 +1,6 @@
 package com.yajie.huayi.web.controller;
 
+import com.yajie.huayi.config.myinterface.RequestJson;
 import com.yajie.huayi.constant.Constants;
 import com.yajie.huayi.service.ProductionService;
 import com.yajie.huayi.util.PageRequest;
@@ -36,6 +37,7 @@ public class ProductionController {
 
     /**
      * 项目管理
+     *
      * @param productNum
      * @param projectNum
      * @param status
@@ -47,11 +49,12 @@ public class ProductionController {
     public ReturnVO getProductionPage(String productNum,
                                       String projectNum,
                                       Integer status,
-                                      @RequestParam(defaultValue = Constants.PAGE_DEFAULT_START)Integer page,
+                                      @RequestParam(defaultValue = Constants.PAGE_DEFAULT_START) Integer page,
                                       @RequestParam(defaultValue = Constants.PAGE_DEFAULT_SIZE) Integer pageSize) {
         PageRequest pageRequest = new PageRequest(page, pageSize);
-        return ReturnVO.getSuccess(productionService.getProductionPage(productNum, projectNum,status, pageRequest));
+        return ReturnVO.getSuccess(productionService.getProductionPage(productNum, projectNum, status, pageRequest));
     }
+
     /**
      * 批量排单
      */
@@ -63,6 +66,7 @@ public class ProductionController {
 
     /**
      * 查看历史进度
+     *
      * @param id
      * @return
      */
@@ -73,6 +77,7 @@ public class ProductionController {
 
     /**
      * 按照时间查看生产排单
+     *
      * @param startDate
      * @param endDate
      * @return
@@ -80,6 +85,40 @@ public class ProductionController {
     @GetMapping("/date")
     public ReturnVO getProduceDate(String startDate, String endDate) {
         return ReturnVO.getSuccess(productionService.getProduceDate(startDate, endDate));
+    }
+
+    /**
+     * 任务详情页
+     * @param operationId
+     * @param operationStatus
+     * @param operationType
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/task")
+    public ReturnVO getTodayTasks(
+                                  Long operationId,
+                                  Integer operationStatus,
+                                  Integer operationType,
+                                  @RequestParam(defaultValue = Constants.PAGE_DEFAULT_START) Integer page,
+                                  @RequestParam(defaultValue = Constants.PAGE_DEFAULT_SIZE) Integer pageSize) {
+        PageRequest pageRequest = new PageRequest(page, pageSize);
+        return ReturnVO.getSuccess(productionService.getTodayTasks(operationId, operationStatus, operationType,  pageRequest));
+    }
+
+    /**
+     * 操作工完成任务
+     * @param id
+     * @param operationId
+     * @param remark
+     * @param imgUrl
+     * @return
+     */
+    @PostMapping("/operationTaskOver")
+    public ReturnVO operationTaskOver(@RequestJson("id") Long id, @RequestJson("operationId") Long operationId, @RequestJson("remark") String remark, @RequestJson("imgUrl") String imgUrl) {
+        productionService.operationTaskOver(id, operationId, remark, imgUrl);
+        return ReturnVO.getSuccess();
     }
 
     /**
@@ -125,6 +164,4 @@ public class ProductionController {
     public ReturnVO getProjectInfo(Long id) {
         return ReturnVO.getSuccess(productionService.getProjectInfo(id));
     }
-
-
 }

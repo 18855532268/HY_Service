@@ -22,7 +22,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     int updateByPrimaryKey(User record);
 
-    Long findCount(@Param("username") String username, @Param("createId") Long createId);
+    Long findCount(@Param("key") String key, @Param("role")Long role, @Param("createId") Long createId, @Param("startTime")String startTime, @Param("endTime")String endTime);
 
-    List<User> findUserPage(@Param("username") String username, @Param("createId") Long createId, @Param("pageRequest") PageRequest pageRequest);
+    List<User> findUserPage(@Param("key") String key, @Param("role")Long role, @Param("createId") Long createId, @Param("startTime")String startTime, @Param("endTime")String endTime ,@Param("pageRequest") PageRequest pageRequest);
 }

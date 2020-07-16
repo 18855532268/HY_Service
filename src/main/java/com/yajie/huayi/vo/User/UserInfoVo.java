@@ -24,9 +24,9 @@ import java.util.List;
 public class UserInfoVo {
     private Long id;
     /**
-     * 创建人id
+     * 创建人
      */
-    private Long createId;
+    private String creater;
     /**
      * 用户名
      */
@@ -59,10 +59,10 @@ public class UserInfoVo {
     private List<Long> role;
     private Integer status;
 
-    public static UserInfoVo of(User user) {
+    public static UserInfoVo of(User user, User creater) {
         return UserInfoVo.builder()
                 .id(user.getId())
-                .createId(user.getCreateId())
+                .creater(creater.getUsername())
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .name(user.getName())
@@ -85,7 +85,6 @@ public class UserInfoVo {
         }
         return UserInfoVo.builder()
                 .id(user.getId())
-                .createId(user.getCreateId())
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .name(user.getName())
@@ -102,13 +101,13 @@ public class UserInfoVo {
                 .build();
     }
 
-    public static List<UserInfoVo> of(List<User> users) {
-        List<UserInfoVo> vos = new ArrayList<>();
-        if (users != null) {
-            for (User user : users) {
-                vos.add(UserInfoVo.of(user));
-            }
-        }
-        return vos;
-    }
+//    public static List<UserInfoVo> of(List<User> users) {
+//        List<UserInfoVo> vos = new ArrayList<>();
+//        if (users != null) {
+//            for (User user : users) {
+//                vos.add(UserInfoVo.of(user));
+//            }
+//        }
+//        return vos;
+//    }
 }

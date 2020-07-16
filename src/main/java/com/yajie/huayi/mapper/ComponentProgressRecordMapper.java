@@ -4,7 +4,6 @@ import com.yajie.huayi.domain.ComponentProgressRecord;
 import com.yajie.huayi.domain.other.ProduceDateEntity;
 import com.yajie.huayi.domain.other.TodayTaskEntity;
 import com.yajie.huayi.util.PageRequest;
-import com.yajie.huayi.vo.Production.TodayTaskVo;
 import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
@@ -29,13 +28,16 @@ public interface ComponentProgressRecordMapper extends BaseMapper<ComponentProgr
 
     Long findCount(@Param("operationId")Long operationId,
                    @Param("operationStatus") Integer operationStatus,
-                   @Param("inspectionId")Long inspectionId,
-                   @Param("inspectionStatus")Integer inspectionStatus,
-                   @Param("type")Integer type);
+//                   @Param("inspectionId")Long inspectionId,
+//                   @Param("inspectionStatus")Integer inspectionStatus,
+                   @Param("operationType")Integer operationType
+//                   @Param("inspectionType")Integer inspectionType
+    );
     List<TodayTaskEntity> findPage(@Param("operationId")Long operationId,
                                    @Param("operationStatus") Integer operationStatus,
-                                   @Param("inspectionId")Long inspectionId,
-                                   @Param("inspectionStatus")Integer inspectionStatus,
-                                   @Param("type")Integer type,
+//                                   @Param("inspectionId")Long inspectionId,
+//                                   @Param("inspectionStatus")Integer inspectionStatus,
+                                   @Param("operationType")Integer operationType,
+//                                   @Param("inspectionType")Integer inspectionType,
                                    @Param("pageRequest")PageRequest pageRequest);
 }

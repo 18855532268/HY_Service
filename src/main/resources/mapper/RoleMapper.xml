@@ -14,6 +14,13 @@
     from role
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="findPage" resultType="com.yajie.huayi.domain.Role"
+          parameterType="com.yajie.huayi.util.PageRequest">
+    select *
+    from role r
+    order by id desc
+    limit #{pageRequest.offset}, #{pageRequest.pageSize}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from role
     where id = #{id,jdbcType=BIGINT}

@@ -22,7 +22,7 @@ package com.yajie.huayi.config;//package com.example.manage.config;
 // * <p>
 // *     登陆失败处理器
 // * </p>
-// * @Author: wangzh
+// * @Author: yaoby
 // * @Date: 2019/3/21
 // */
 //@Slf4j

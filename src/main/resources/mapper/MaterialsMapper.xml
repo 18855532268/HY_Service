@@ -3,18 +3,21 @@
 <mapper namespace="com.yajie.huayi.mapper.MaterialsMapper">
   <resultMap id="BaseResultMap" type="com.yajie.huayi.domain.Materials">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="specifications" jdbcType="VARCHAR" property="specifications" />
     <result column="steel_content" jdbcType="VARCHAR" property="steelContent" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
     <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
     <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, specifications, steel_content, `count`, `type`, create_at, update_at, 
-    `status`
+    id, `number`, `name`, specifications, steel_content, model, `count`, unit, `type`, 
+    create_at, update_at, `status`
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -27,16 +30,21 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.Materials" useGeneratedKeys="true">
-    insert into materials (`name`, specifications, steel_content, 
-      `count`, `type`, create_at, 
+    insert into materials (`number`, `name`, specifications, 
+      steel_content, model, `count`, 
+      unit, `type`, create_at, 
       update_at, `status`)
-    values (#{name,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, #{steelContent,jdbcType=VARCHAR}, 
-      #{count,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{createAt,jdbcType=TIMESTAMP}, 
+    values (#{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, 
+      #{steelContent,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
+      #{unit,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{createAt,jdbcType=TIMESTAMP}, 
       #{updateAt,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yajie.huayi.domain.Materials" useGeneratedKeys="true">
     insert into materials
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="number != null">
+        `number`,
+      </if>
       <if test="name != null">
         `name`,
       </if>
@@ -46,8 +54,14 @@
       <if test="steelContent != null">
         steel_content,
       </if>
+      <if test="model != null">
+        model,
+      </if>
       <if test="count != null">
         `count`,
+      </if>
+      <if test="unit != null">
+        unit,
       </if>
       <if test="type != null">
         `type`,
@@ -63,6 +77,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -72,8 +89,14 @@
       <if test="steelContent != null">
         #{steelContent,jdbcType=VARCHAR},
       </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
       <if test="count != null">
         #{count,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
@@ -92,6 +115,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.yajie.huayi.domain.Materials">
     update materials
     <set>
+      <if test="number != null">
+        `number` = #{number,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
       </if>
@@ -101,8 +127,14 @@
       <if test="steelContent != null">
         steel_content = #{steelContent,jdbcType=VARCHAR},
       </if>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
       <if test="count != null">
         `count` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         `type` = #{type,jdbcType=INTEGER},
@@ -121,10 +153,13 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yajie.huayi.domain.Materials">
     update materials
-    set `name` = #{name,jdbcType=VARCHAR},
+    set `number` = #{number,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
       specifications = #{specifications,jdbcType=VARCHAR},
       steel_content = #{steelContent,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
       `count` = #{count,jdbcType=INTEGER},
+      unit = #{unit,jdbcType=VARCHAR},
       `type` = #{type,jdbcType=INTEGER},
       create_at = #{createAt,jdbcType=TIMESTAMP},
       update_at = #{updateAt,jdbcType=TIMESTAMP},
@@ -153,6 +188,15 @@
     </if>
     <if test="name != null">
       and m.name like CONCAT("%",#{name},"%")
+    </if>
+    <if test="specifications != null">
+      and m.specifications like CONCAT("%",#{specifications},"%")
+    </if>
+    <if test="specifications != null">
+    and m.specifications like CONCAT("%",#{specifications},"%")
+    </if>
+    <if test="unit != null">
+      and m.unit like CONCAT("%",#{unit},"%")
     </if>
     <if test="countMin != null">
       and m.count &gt; #{countMin}

@@ -23,7 +23,7 @@ public class ComponentInspectionRecordVo {
     /*
      * 操作时间
      */
-    private String operationAt;
+    private String inspectionAt;
     /**
      * 质检情况
      */
@@ -42,7 +42,7 @@ public class ComponentInspectionRecordVo {
     public static ComponentInspectionRecordVo of(ComponentInspectionRecord componentInspectionRecord, User inspector) {
         return ComponentInspectionRecordVo.builder()
                 .progressDetails(componentInspectionRecord.getProgressDetails())
-                .operationAt(CommonUtil.dateToStr(componentInspectionRecord.getOperationAt()))
+                .inspectionAt(CommonUtil.dateToStr(componentInspectionRecord.getInspectionAt()))
                 .status(componentInspectionRecord.getStatus())
                 .inspector(inspector.getUsername())
                 .remark(componentInspectionRecord.getRemark())

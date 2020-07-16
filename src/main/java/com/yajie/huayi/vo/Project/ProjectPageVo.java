@@ -34,7 +34,7 @@ public class ProjectPageVo {
     /**
      * 项目地址
      */
-//    private String address;
+    private String address;
 
     /**
      * 项目简称
@@ -43,7 +43,7 @@ public class ProjectPageVo {
     /**
      * 客户id
      */
-//    private Long customerId;
+    private Long customerId;
     /**
      * 对方公司
      */
@@ -51,11 +51,11 @@ public class ProjectPageVo {
     /**
      * 项目联系人
      */
-//    private String customerName;
+    private String customerName;
     /**
      * 联系人电话
      */
-//    private String telephone;
+    private String telephone;
     /**
      * 合同签订时间
      */
@@ -75,7 +75,7 @@ public class ProjectPageVo {
     /**
      * 签订人id
      */
-//    private Long signerId;
+    private Long signerId;
     /**
      * 上传的合同地址
      */
@@ -104,8 +104,14 @@ public class ProjectPageVo {
                 .number(project.getNumber())
                 .name(project.getName())
                 .shortName(project.getShortName())
+                .customerId(project.getCustomerId())
+                .address(project.getAddress())
                 .customerCompany(project.getCustomerCompany())
+                .customerName(project.getCustomerName())
+                .telephone(project.getTelephone())
                 .contractAt(CommonUtil.dateToStr(project.getContractAt()))
+                .signerId(project.getSignerId())
+                .contract(project.getContract())
                 .handleName(project.getHandleName())
                 .handleAt(CommonUtil.dateToStr(project.getHandleAt()))
                 .model(model)

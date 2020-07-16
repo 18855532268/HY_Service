@@ -34,7 +34,7 @@ public class ComponentInspectionRecord implements Serializable {
     /**
      * 操作时间
      */
-    private Date operationAt;
+    private Date inspectionAt;
 
     /**
      * 质检情况
@@ -52,6 +52,11 @@ public class ComponentInspectionRecord implements Serializable {
     private String remark;
 
     private String imgUrl;
+
+    /**
+     * 质检类型
+     */
+    private Integer type;
 
     private static final long serialVersionUID = 1L;
 }

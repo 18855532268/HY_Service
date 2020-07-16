@@ -195,24 +195,35 @@
   <select id="findCount" resultType="java.lang.Long">
     <bind name="DELETE" value="@com.yajie.huayi.constant.ConstantsForDomain@DELETE" />
     select count(*)
-    from user u
+    from user u INNER JOIN user_role ur ON u.id =ur.user_id
     where u.status !=#{DELETE}
     <include refid="whereUser"></include>
   </select>
   <select id="findUserPage" resultType="com.yajie.huayi.domain.User">
     <bind name="DELETE" value="@com.yajie.huayi.constant.ConstantsForDomain@DELETE" />
-    select *
-    from user u
+    select u.*
+    from user u INNER JOIN user_role ur ON u.id =ur.user_id
     where u.status !=#{DELETE}
     <include refid="whereUser"></include>
     limit #{pageRequest.offset}, #{pageRequest.pageSize}
   </select>
   <sql id="whereUser">
-    <if test="username != null">
-      and username = #{username},
+    <if test="key != null">
+      and u.name like CONCAT('%', #{key}, '%') or u.user_code like CONCAT('%', #{key}, '%')
+      or u.username like CONCAT('%', #{key}, '%') or u.company like CONCAT('%', #{key}, '%')
+      or u.telephone like CONCAT('%', #{key}, '%')
+    </if>
+    <if test="role != null">
+      and ur.role_id = #{role}
     </if>
     <if test="createId != null">
-      and create_id = #{createId},
+      and u.create_id = #{createId}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and u.create_at &gt;= #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and u.create_at  &lt; #{endTime}
     </if>
   </sql>
 </mapper>

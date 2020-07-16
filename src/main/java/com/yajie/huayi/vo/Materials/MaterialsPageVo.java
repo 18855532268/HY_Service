@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MaterialsPageVo {
     private Long id;
-
+    private String number;
     /**
      * 材料名称
      */
@@ -35,31 +35,40 @@ public class MaterialsPageVo {
      * 含钢量
      */
     private String steelContent;
-
+    /**
+     * 型号
+     */
+    private String model;
     /**
      * 数量
      */
     private Integer count;
+    private String unit;
+
 
     /**
      * 材料类型
      */
     private Integer type;
 
-    public static MaterialsPageVo of(Materials materials){
-       return MaterialsPageVo.builder()
-               .id(materials.getId())
-               .name(materials.getName())
-               .specifications(materials.getSpecifications())
-               .steelContent(materials.getSteelContent())
-               .count(materials.getCount())
-               .type(materials.getType())
-               .build();
+    public static MaterialsPageVo of(Materials materials) {
+        return MaterialsPageVo.builder()
+                .id(materials.getId())
+                .number(materials.getNumber())
+                .name(materials.getName())
+                .specifications(materials.getSpecifications())
+                .steelContent(materials.getSteelContent())
+                .model(materials.getModel())
+                .count(materials.getCount())
+                .unit(materials.getUnit())
+                .type(materials.getType())
+                .build();
     }
-    public static List<MaterialsPageVo> of(List<Materials> materialsList){
+
+    public static List<MaterialsPageVo> of(List<Materials> materialsList) {
         List<MaterialsPageVo> vos = new ArrayList<>();
-        if (materialsList != null){
-            for (Materials materials: materialsList){
+        if (materialsList != null) {
+            for (Materials materials : materialsList) {
                 vos.add(MaterialsPageVo.of(materials));
             }
         }

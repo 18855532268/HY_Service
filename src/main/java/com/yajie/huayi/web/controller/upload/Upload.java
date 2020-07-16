@@ -30,33 +30,34 @@ public class Upload {
 
     @PostMapping("/uploadDoc")
     public ReturnVO uploadImage(MultipartFile file, HttpServletRequest request) throws IOException {
-        String fileName = file.getOriginalFilename();
-        String id = CommonUtil.getUUID();
-        log.info("上传文件:{}",fileName);
-        String substring = fileName.substring(fileName.lastIndexOf("."));
-        if (StringUtils.isBlank(fileName) ) {
-            throw new ErrorMessageException("上传的文件名错误或格式受限");
-        }
-        log.info("上传后缀:{}",substring);
+            String fileName = file.getOriginalFilename();
+            String id = CommonUtil.getUUID();
+            log.info("上传文件:{}",fileName);
+            String substring = fileName.substring(fileName.lastIndexOf("."));
+            if (StringUtils.isBlank(fileName) ) {
+                throw new ErrorMessageException("上传的文件名错误或格式受限");
+            }
+            log.info("上传后缀:{}",substring);
 
-        String transFilePath = tempFilePath + "/" + id + substring;
-        log.info("上传路径:{}", transFilePath);
-        File filePath = new File(transFilePath);
+            String transFilePath = tempFilePath + "/" + id + substring;
+            log.info("上传路径:{}", transFilePath);
+            File filePath = new File(transFilePath);
 
-        if (!filePath.getParentFile().exists()) {
-            filePath.getParentFile().mkdirs();
-        }
+            if (!filePath.getParentFile().exists()) {
+                filePath.getParentFile().mkdirs();
+            }
 
-        try {
-            file.transferTo(filePath);
-        } catch (IOException e) {
-            log.error("上传文件失败");
-            log.error("", e);
-            throw new ErrorMessageException("服务器接收文件失败");
-        }
+            try {
+                file.transferTo(filePath);
+            } catch (IOException e) {
+                log.error("上传文件失败");
+                log.error("", e);
+                throw new ErrorMessageException("服务器接收文件失败");
+            }
+            String basePath = request.getScheme() + "://" + request.getServerName() + visitFilePath + "/" + id + substring;
+            log.info("访问地址:{}", basePath);
 
-        String basePath = request.getScheme() + "://" + request.getServerName() + visitFilePath + "/" + id + substring;
-        log.info("访问地址:{}", basePath);
+
         return ReturnVO.getSuccess(basePath);
     }
 
@@ -69,9 +70,9 @@ public class Upload {
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         //  单个数据大小
-        factory.setMaxFileSize("5MB");
+        factory.setMaxFileSize("7MB");
         /// 总上传数据大小
-        factory.setMaxRequestSize("5MB");
+        factory.setMaxRequestSize("7MB");
         return factory.createMultipartConfig();
     }
 }

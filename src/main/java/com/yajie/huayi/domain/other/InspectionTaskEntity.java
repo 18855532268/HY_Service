@@ -1,4 +1,4 @@
-package com.yajie.huayi.vo.Production;
+package com.yajie.huayi.domain.other;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,26 +6,22 @@ import lombok.Data;
 /**
  * @author yaoby
  * @version 1.0
- * @date 2020/7/10 14:04
+ * @date 2020/7/16 11:23
  */
-@Data
 @Builder
-public class TodayTaskVo {
+@Data
+public class InspectionTaskEntity {
     private Long id;
-    private Integer total;
-    private Integer complete;
-    private Integer uncomplete;
     private String componentNum;
     private String componentType;
     private String projectShortName;
     private String projectName;
-    private String taskDate;
-    private Integer operationStatus;
-    private String operationDate;
-    private String operationName;
     private String telephone;
     // 质检人
+    private String inspectionDate;
     private String inspectionName;
     private Integer inspectionStatus;
-
+    private String content;
+    private String remark;
+    private String imgUrls;
 }

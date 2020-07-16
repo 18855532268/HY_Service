@@ -31,10 +31,15 @@
     <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `number`, project_id, production_id, building_no, floor_no, type_id, create_id, 
-    create_name, `length`, width, height, volume, actual_volume, steel_bar_binding_at, 
-    steel_area, steel_id, moldie_at, mold_id, molder_id, pour_at, demould_at, demould_id, 
+    id, `number`, project_id, production_id, building_no, floor_no, type_id, create_id,
+    create_name, `length`, width, height, volume, actual_volume, steel_bar_binding_at,
+    steel_area, steel_id, moldie_at, mold_id, molder_id, pour_at, demould_at, demould_id,
     finished_id, `status`, create_at, update_at
+  </sql>
+  <sql id="Base_Column_List1">
+     `number`, project_id, production_id, building_no, floor_no, type_id, create_id,
+    create_name, `length`, width, height, volume, actual_volume,
+    `status`, create_at, update_at
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -344,6 +349,17 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into component (<include refid="Base_Column_List1" />)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.number},#{item.project_id},#{item.production_id},#{item.building_no},#{item.floor_no},#{item.type_id},
+    #{item.create_id},#{item.create_name},#{item.length},#{item.width},#{item.height},#{item.volume},
+    #{item.actual_volume},#{item.`status`},#{item.create_at},#{item.update_at})
+      </foreach>
+  </insert>
+
+
   <select id="findCount" resultType="java.lang.Long">
     <bind name="DELETE" value="@com.yajie.huayi.constant.ConstantsForDomain@DELETE" />
         select count(*)
@@ -361,26 +377,29 @@
     limit #{pageRequest.offset}, #{pageRequest.pageSize}
   </select>
   <sql id="whereComponent">
-    <if test="number != null">
-      and c.`number` = CONCAT('%', #{number}, '%'),
+    <if test="number != null and number != ''">
+      and c.`number` = CONCAT('%', #{number}, '%')
     </if>
     <if test="projectId != null">
-      and p.project_id = #{projectId},
+      and p.project_id = #{projectId}
     </if>
     <if test="componentTypeId != null">
-      and c.type_id = #{componentTypeId},
+      and c.type_id = #{componentTypeId}
     </if>
     <if test="buildingNo != null">
-      and c.building_no = #{buildingNo},
+      and c.building_no = #{buildingNo}
     </if>
     <if test="floorNoStart != null">
-      and c.floor_no &gt; #{floorNoStart},
+      and c.floor_no &gt; #{floorNoStart}
     </if>
     <if test="floorNoEnd != null">
-      and c.floor_no &gt; #{floorNoEnd},
+      and c.floor_no &gt; #{floorNoEnd}
     </if>
-    <if test="number != null">
-      and pr.`number` = CONCAT('%', #{number}, '%'),
+    <if test="projectNum != null">
+      and pr.`number` = CONCAT('%', #{projectNum}, '%')
+    </if>
+    <if test="status != null">
+      and c.`status` = #{status}
     </if>
   </sql>
 </mapper>

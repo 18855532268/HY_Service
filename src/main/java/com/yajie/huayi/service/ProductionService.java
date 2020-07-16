@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.yajie.huayi.constant.ConstantsForDomain;
 import com.yajie.huayi.domain.*;
 import com.yajie.huayi.domain.other.ProduceDateEntity;
+import com.yajie.huayi.domain.other.TodayTaskEntity;
 import com.yajie.huayi.exception.ErrorMessageException;
 import com.yajie.huayi.exception.ErrorRollbackException;
 import com.yajie.huayi.mapper.*;
@@ -54,7 +55,7 @@ public class ProductionService {
     private ComponentProgressRecordMapper componentProgressRecordMapper;
     @Autowired
     private ComponentInspectionRecordMapper componentInspectionRecordMapper;
-
+    // 还未进行批量添加处理
     public void addProduction(ProductionVo productionVo) {
         log.info("添加生产单：{}", JSONObject.toJSONString(productionVo));
 
@@ -91,6 +92,7 @@ public class ProductionService {
 
         // 添加构件
         for (Integer buildingNo : productionVo.getBuildingNos()) {
+            List<Component> components = new ArrayList<>();
             for (Integer floorNo : productionVo.getFloorNos()) {
                 Component component = new Component();
 
@@ -252,6 +254,7 @@ public class ProductionService {
                 Mold mold = moldMapper.selectByPrimaryKey(component.getMoldId());
                 User demouer = userMapper.selectByPrimaryKey(component.getDemouldId());
                 User finisher = userMapper.selectByPrimaryKey(component.getFinishedId());
+
                 vos.add(ProducePageVo.of(project, component, steeler, molder, mold, demouer, finisher));
             }
         }
@@ -378,9 +381,58 @@ public class ProductionService {
         }
         return vos;
     }
-    public Page<TodayTaskVo> getTodayTasks(Long operationId, Integer operationStatus, Long inspectionId, Integer inspectionStatus, Integer type){
-        componentProgressRecordMapper.findCount(operationId, operationStatus, inspectionId, inspectionStatus, type);
+
+    public OperationTaskInfoVo getTodayTasks(Long operationId, Integer operationStatus, Integer operationType, PageRequest pageRequest){
+        Long count = componentProgressRecordMapper.findCount(operationId, operationStatus,  operationType);
+        List<TodayTaskEntity> page = new ArrayList<>();
+        Integer operationComplete = 0;
+        if (count > 0){
+            page = componentProgressRecordMapper.findPage(operationId, operationStatus, operationType, pageRequest);
+            operationComplete = componentProgressRecordMapper.selectCount(Wrappers.<ComponentProgressRecord>lambdaQuery().eq(ComponentProgressRecord::getStatus, ConstantsForDomain.COMPONENT_PROGRESS_STATUS_NORMAL));
+
+        }
+        Page<OperationTaskVo> voPage = new Page<>(pageRequest, OperationTaskVo.of(page), count);
+
+        return OperationTaskInfoVo.of(count, Long.valueOf(operationComplete), voPage);
     }
+    public void operationTaskOver(Long id, Long operationId, String remark, String imgUrl) {
+        ComponentProgressRecord componentProgressRecord = componentProgressRecordMapper.selectByPrimaryKey(id);
+        User operationer = userMapper.selectByPrimaryKey(operationId);
+        // 参数判断
+        checkNum(componentProgressRecord, operationer);
+        componentProgressRecord.setStatus(ConstantsForDomain.COMPONENT_PROGRESS_STATUS_FINISHED);
+        componentProgressRecord.setOperatorId(operationer.getId());
+        componentProgressRecord.setRemark(remark);
+        componentProgressRecord.setImgUrl(imgUrl);
+        componentProgressRecord.setOperationAt(new Date());
+        componentProgressRecordMapper.updateByPrimaryKey(componentProgressRecord);
+        log.info("操作工提交完成：{}",JSONObject.toJSONString(componentProgressRecord));
+
+        if (componentProgressRecord.getType() != ConstantsForDomain.COMPONENT_PROGRESS_POUR_TYPE){
+            ComponentInspectionRecord componentInspectionRecord = new ComponentInspectionRecord();
+            componentInspectionRecord.setComponentId(componentProgressRecord.getComponentId());
+            componentInspectionRecord.setStatus(ConstantsForDomain.COMPONENT_PROGRESS_STATUS_NORMAL);
+            componentInspectionRecord.setType(componentProgressRecord.getType());
+            componentInspectionRecordMapper.insert(componentInspectionRecord);
+        }
+    }
+
+    private void checkNum(ComponentProgressRecord componentProgressRecord, User operationer) {
+        if (operationer == null){
+            throw new ErrorRollbackException("该人员不存在");
+        }
+        if (componentProgressRecord == null || componentProgressRecord.getStatus() == ConstantsForDomain.COMPONENT_PROGRESS_STATUS_FINISHED){
+            throw new ErrorRollbackException("该任务不存在或已完成");
+        }
+        // 判断是否进行了搭模质检
+        if (componentProgressRecord.getType() == ConstantsForDomain.COMPONENT_PROGRESS_MOLD_TYPE){
+            ComponentInspectionRecord componentInspectionRecord = componentInspectionRecordMapper.selectOne(Wrappers.<ComponentInspectionRecord>lambdaQuery().eq(ComponentInspectionRecord::getComponentId, componentProgressRecord.getComponentId()).eq(ComponentInspectionRecord::getType, ConstantsForDomain.COMPONENT_INSPECTION_MOLD_TYPE));
+            if (componentInspectionRecord == null){
+                throw new ErrorRollbackException("该构件还未进行搭模质检");
+            }
+        }
+    }
+
 
     /**
      * 获得时间段内的天数
@@ -411,5 +463,4 @@ public class ProductionService {
         }
         return list;
     }
-
 }

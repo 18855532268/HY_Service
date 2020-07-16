@@ -19,6 +19,7 @@ import java.util.Date;
 public class MaterialsVo implements Serializable {
     private Long id;
 
+    private String number;
     /**
      * 材料名称
      */
@@ -33,11 +34,14 @@ public class MaterialsVo implements Serializable {
      * 含钢量
      */
     private String steelContent;
+    private String model;
 
     /**
      * 数量
      */
     private Integer count;
+    private String unit;
+
 
     /**
      * 材料类型

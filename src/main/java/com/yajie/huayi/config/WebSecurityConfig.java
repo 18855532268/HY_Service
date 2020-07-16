@@ -1,11 +1,4 @@
-package com.yajie.huayi.config;//package com.example.manage.config; /**
-// * Project Name:auth2
-// * File Name:WebSecurityConfig.java
-// * Package Name:com.briup.apps.auth2.config
-// * Date:2018年9月17日上午10:23:44
-// * Copyright (c) 2018, chenzhou1025@126.com All Rights Reserved.
-// *
-// */
+package com.yajie.huayi.config;
 //
 //
 //import com.example.manage.web.filter.JwtAuthenticationTokenFilter;
@@ -30,7 +23,7 @@ package com.yajie.huayi.config;//package com.example.manage.config; /**
 // * Function: security 配置类 <br/>
 // * Date: 2018年9月17日 上午10:23:44 <br/>
 // *
-// * @author wangzh
+// * @author yaoby
 // * @version
 // * @since JDK 1.8
 // * @see

@@ -13,6 +13,8 @@ public interface ComponentMapper extends BaseMapper<Component>{
 
     int insert(Component record);
 
+    int insertBatch(List<Component> list);
+
     int insertSelective(Component record);
 
     Component selectByPrimaryKey(Long id);
@@ -20,6 +22,7 @@ public interface ComponentMapper extends BaseMapper<Component>{
     int updateByPrimaryKeySelective(Component record);
 
     int updateByPrimaryKey(Component record);
+
 
     Long findCount(@Param("number") String number, @Param("projectId") Long projectId, @Param("componentTypeId") Long componentTypeId, @Param("buildingNo") Integer buildingNo, @Param("floorNoStart") Integer floorNoStart, @Param("floorNoEnd") Integer floorNoEnd, @Param("projectNum") String projectNum, @Param("status") Integer status);
 

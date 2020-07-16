@@ -66,7 +66,7 @@ public class ConstantsForDomain {
     public final static String COMPONENT_PROGRESS_POUR = "浇筑";
     public final static String COMPONENT_PROGRESS_DEMOULD = "脱模";
     /**
-     * 进度状态
+     * 操作进度状态
      */
     public final static int COMPONENT_PROGRESS_STATUS_NORMAL = 1;
     public final static int COMPONENT_PROGRESS_STATUS_FINISHED = 2;
@@ -78,4 +78,21 @@ public class ConstantsForDomain {
     public final static int COMPONENT_PROGRESS_MOLD_TYPE = 2;
     public final static int COMPONENT_PROGRESS_POUR_TYPE = 3;
     public final static int COMPONENT_PROGRESS_DEMOULD_TYPE = 4;
+    /**
+     * 质检操作类型
+     */
+    public final static int COMPONENT_INSPECTION_STEEL_TYPE = 1;
+    public final static int COMPONENT_INSPECTION_MOLD_TYPE = 2;
+    public final static int COMPONENT_INSPECTION_POUR_TYPE = 3;
+    public final static int COMPONENT_INSPECTION_DEMOULD_TYPE = 4;
+
+    /**
+     * 质检进度状态
+     */
+    public final static int[] COMPONENT_INSPECTION_STATUS={-1, 1, 2, 9};
+    public final static int COMPONENT_INSPECTION_STATUS_NOTPASS = -1;
+    public final static int COMPONENT_INSPECTION_STATUS_NORMAL = 1;
+    public final static int COMPONENT_INSPECTION_STATUS_FINISHED = 2;
+    public final static int COMPONENT_INSPECTION_STATUS_DELETE = 9;
+
 }
