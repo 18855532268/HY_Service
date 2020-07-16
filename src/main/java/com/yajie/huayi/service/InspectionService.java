@@ -56,6 +56,6 @@ public class InspectionService {
 
     public InspectionTaskInfoVo getInspections(Long id, Long componentId, Integer status, Long inspectorId, String remark, Integer type, PageRequest pageRequest) {
         Long count = componentInspectionRecordMapper.findCount(id, componentId, status, inspectorId, remark, type);
-        return ;
+        return null;
     }
 }
